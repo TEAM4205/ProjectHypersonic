@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="/ProjectHypersonic/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Polirobots Task Management">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Polirobots Task Management</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-messaging-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBbpNlnqFId7mDqj4K59e2My_xS2ClorNw",
+      authDomain: "prdb-49c65.firebaseapp.com",
+      projectId: "prdb-49c65",
+      messagingSenderId: "539452338726",
+      appId: "1:539452338726:web:13018716eca609859d2ce7",
+    };
+
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+  <script>
+  function showNativeNotification(title, body) {
+    if (Notification.permission === 'granted') {
+      new Notification(title, {
+        body: body,
+        icon: '/icons/Icon-192.png'
+      });
+    } else {
+      Notification.requestPermission().then(p => {
+        if (p === 'granted') new Notification(title, { body, icon: '/icons/Icon-192.png' });
+      });
+    }
+  }
+</script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    // Registra el SW de FCM en lugar del de Flutter
+    navigator.serviceWorker.register('/ProjectHypersonic/firebase-messaging-sw.js')
+      .then((reg) => console.log('SW registrado', reg))
+      .catch((err) => console.error('SW error', err));
+  }
+</script>
+</body>
+</html>
